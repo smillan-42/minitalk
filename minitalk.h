@@ -23,8 +23,8 @@ typedef struct s_mini
 	int	pid_client;
 }	t_mini;
 
-t_mini	*client_start(void);
-t_mini	*server_start(void);
+t_mini	*client_ini(void);
+t_mini	*server_ini(void);
 void	client_send(t_mini *talk, char *message);
 void	server_receive(int boolean);
 int		ft_strlen(char *s);

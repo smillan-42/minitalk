@@ -34,11 +34,13 @@ void	client_send(t_mini *talk, char *message)
 	int	signal;
 
 	i = -1;
-	while (++i <= ft_strlen(message))
+	//while (++i <= ft_strlen(message))
+	while (++i < ft_strlen(message) + 1)  // Incluir el caracter nulo
 	{
 		bit_displacement = -1;
 		signal = 0;
-		while (++bit_displacement < 7)
+		//while (++bit_displacement < 7)
+		while (++bit_displacement < 8)  // Enviar los 8 bits correctos
 		{
 			if ((message[i] >> bit_displacement) & 1)
 			{

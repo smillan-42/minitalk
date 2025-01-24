@@ -32,8 +32,10 @@ void	server_recieve(int boolean)
 	static int	bit_displacement = 0;
 	static char	letter = 0;
 	
-	letter += ((boolean & 1) << bit_displacement++);
-	if (bit_displacement == 7)
+	//letter += ((boolean & 1) << bit_displacement++);
+	//letter += ((boolean == SIGUSR1) << bit_displacement++);
+	letter |= ((boolean == SIGUSR2) << bit_displacement++);
+	if (bit_displacement == 8) //cambio de 7 a 8
 	{
 		write(1, &letter, 1);
 		if (!letter)
@@ -74,6 +76,11 @@ int	main(int argc, char **argv)
 	else
 	{
 		talk = server_ini();
+		if (!talk)
+		{
+			ft_putstr("ERROR\n");
+			return (EXIT_FAILURE);
+		}
 		talk->pid_server = getpid();
 		ft_putstr("SUCCESS!, The PID: ");
 		ft_putnbr(talk->pid_server);
