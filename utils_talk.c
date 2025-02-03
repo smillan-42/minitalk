@@ -12,16 +12,6 @@
 
 #include "minitalk.h"
 
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
 int	ft_atoi(char *nptr)
 {
 	int	a;
@@ -50,7 +40,7 @@ int	ft_atoi(char *nptr)
 	return (a * num);
 }
 
-void ft_putstr(char *s)
+void	ft_putstr(char *s)
 {
 	int	i;
 
@@ -59,12 +49,12 @@ void ft_putstr(char *s)
 	{
 		write(1, &s[i], 1);
 		i++;
-	}	
+	}
 }
 
-void ft_putnbr(int n)
+void	ft_putnbr(int n)
 {
-    char	c;
+	char	c;
 
 	if (n == -2147483648)
 	{
@@ -83,7 +73,36 @@ void ft_putnbr(int n)
 	}
 	else
 	{
-        c = n + '0';
-        write(1, &c, 1);
+		c = n + '0';
+		write(1, &c, 1);
 	}
+}
+
+t_mini	*server_ini(void)
+{
+	t_mini	*talk;
+
+	talk = malloc(sizeof(t_mini));
+	if (!talk)
+	{
+		ft_putstr("ERROR\n");
+		exit(EXIT_FAILURE);
+	}
+	talk->pid_server = 0;
+	talk->pid_client = 0;
+	return (talk);
+}
+
+void	process_state_one(t_server_state *s)
+{
+	s->message = malloc(s->length + 1);
+	if (!s->message)
+	{
+		ft_putstr("ERROR\n");
+		exit(EXIT_FAILURE);
+	}
+	s->message_index = 0;
+	s->char_bit_count = 0;
+	s->c = 0;
+	s->state = 2;
 }
